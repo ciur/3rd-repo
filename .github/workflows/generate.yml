@@ -17,8 +17,8 @@ jobs:
 
       - name: Generate File
         run: |
-          cat temp-dst-repo/date.py
-          cat temp-dst-repo/date.py > upstream_version.txt
+          cat temp-dst-repo/date.txt
+          cat temp-dst-repo/date.txt > upstream_version.txt
 
       - name: Echo created file
         run: |
