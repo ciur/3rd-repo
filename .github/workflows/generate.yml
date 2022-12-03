@@ -1,0 +1,45 @@
+name: Generate
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout dst repo
+        uses: actions/checkout@master
+        with:
+          repository: ciur/dst-repo
+          path: temp-dst-repo
+          ref: master
+
+      - name: Generate File
+        run: |
+          cat temp-src-repo/version.py
+          cat temp-src-repo/version.py > upstream_version.txt
+
+      - name: Echo created file
+        run: |
+            cat upstream_version.txt
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v4.2.3
+        with:
+          token: ${{ secrets.GH_PAT_TOKEN }}
+          add-paths: |
+            upstream_version.txt
+          labels: automerge
+
+      - name: Merge
+        uses: KeisukeYamashita/auto-pull-request-merge@v1
+        with:
+          intervalSeconds: 10
+          timeoutSeconds: 60
+          labels: automerge
+          repository: ciur/dst-repo
+          pullRequestNumber:  ${{ steps.cpr.outputs.pull-request-number }}
+          token: ${{ secrets.GH_PAT_TOKEN }}
+          checkStatus: false
