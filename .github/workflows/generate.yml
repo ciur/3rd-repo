@@ -36,8 +36,9 @@ jobs:
         with:
           token: ${{ secrets.GH_PAT_TOKEN }}
           add-paths: |
-            upstram_version.txt
+            upstream_version.txt
           path: current-repo
+          labels: automerge
 
       - name: Merge
         uses: KeisukeYamashita/auto-pull-request-merge@v1
