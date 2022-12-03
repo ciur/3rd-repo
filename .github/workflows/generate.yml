@@ -13,7 +13,7 @@ jobs:
         with:
           repository: ciur/dst-repo
           path: temp-dst-repo
-          ref: master
+          ref: main
 
       - name: Generate File
         run: |
