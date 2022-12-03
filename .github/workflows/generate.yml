@@ -17,15 +17,18 @@ jobs:
 
       - name: Checkout current repo
         uses: actions/checkout@master
+        with:
+          path: current-repo
+          ref: main
 
       - name: Generate File
         run: |
           cat temp-dst-repo/date.txt
-          cat temp-dst-repo/date.txt > upstream_version.txt
+          cat temp-dst-repo/date.txt > current-repo/upstream_version.txt
 
       - name: Echo created file
         run: |
-            cat upstream_version.txt
+            cat current-repo/upstream_version.txt
 
       - name: Create Pull Request
         id: cpr
@@ -34,6 +37,7 @@ jobs:
           token: ${{ secrets.GH_PAT_TOKEN }}
           add-paths: |
             upstram_version.txt
+          path: current-repo
 
       - name: Merge
         uses: KeisukeYamashita/auto-pull-request-merge@v1
