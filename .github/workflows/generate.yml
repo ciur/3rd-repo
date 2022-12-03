@@ -15,6 +15,9 @@ jobs:
           path: temp-dst-repo
           ref: main
 
+      - name: Checkout current repo
+        uses: actions/checkout@master
+
       - name: Generate File
         run: |
           cat temp-dst-repo/date.txt
@@ -27,6 +30,10 @@ jobs:
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v4.2.3
+        with:
+          token: ${{ secrets.GH_PAT_TOKEN }}
+          add-paths: |
+            upstram_version.txt
 
       - name: Merge
         uses: KeisukeYamashita/auto-pull-request-merge@v1
