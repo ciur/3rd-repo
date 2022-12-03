@@ -27,11 +27,6 @@ jobs:
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v4.2.3
-        with:
-          token: ${{ secrets.GH_PAT_TOKEN }}
-          add-paths: |
-            upstream_version.txt
-          labels: automerge
 
       - name: Merge
         uses: KeisukeYamashita/auto-pull-request-merge@v1
@@ -39,7 +34,7 @@ jobs:
           intervalSeconds: 10
           timeoutSeconds: 60
           labels: automerge
-          repository: ciur/dst-repo
+          repository: ciur/3rd-repo
           pullRequestNumber:  ${{ steps.cpr.outputs.pull-request-number }}
           token: ${{ secrets.GH_PAT_TOKEN }}
           checkStatus: false
