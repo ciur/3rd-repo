@@ -2,6 +2,7 @@ name: Generate
 
 on:
   workflow_dispatch:
+  # https://github.com/orgs/community/discussions/26323
   repository_dispatch:
 
 jobs:
