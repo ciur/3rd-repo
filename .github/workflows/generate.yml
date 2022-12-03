@@ -2,7 +2,7 @@ name: Generate
 
 on:
   workflow_dispatch:
-
+  repository_dispatch:
 
 jobs:
   generate:
